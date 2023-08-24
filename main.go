@@ -23,7 +23,7 @@ func main() {
 		playerHand.AddCard(card)
 	}
 	playerHand.Display()
-	fmt.Println("Ещё карту ? (y/n)")
+	fmt.Println("Очков: ", playerHand.Value()," Ещё карту ? (y/n)", )
 	reader := bufio.NewReader(os.Stdin)
 	res, _, _ := reader.ReadRune()
 	for {
@@ -38,7 +38,7 @@ func main() {
 			gameOver = true
 			break
 		}
-		fmt.Println("Ещё карту ? (y/n)")
+		fmt.Println("Очков: ", playerHand.Value()," Ещё карту ? (y/n)", )
 		reader := bufio.NewReader(os.Stdin)
 		res, _, _ = reader.ReadRune()
 	}
