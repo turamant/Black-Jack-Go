@@ -24,33 +24,33 @@ type Deck struct {
 	Cards []Card
 }
 
-func (h Hand) Value() int{
+func (hand Hand) Value() int{
 	score := 0
-	haveAce := 0
-	for index:=0;index < len(h.Cards);index++{
-		if h.Cards[index].Rank != "A" && h.Cards[index].Rank != "K" && h.Cards[index].Rank != "Q" &&
-		   h.Cards[index].Rank != "J"{
-			intRank, _ := strconv.Atoi(h.Cards[index].Rank)
+	handaveAce := 0
+	for index:=0;index < len(hand.Cards);index++{
+		if hand.Cards[index].Rank != "A" && hand.Cards[index].Rank != "K" && hand.Cards[index].Rank != "Q" &&
+		   hand.Cards[index].Rank != "J"{
+			intRank, _ := strconv.Atoi(hand.Cards[index].Rank)
 			score += intRank
-		} else if h.Cards[index].Rank == "K" || h.Cards[index].Rank == "Q" || h.Cards[index].Rank == "J"{
+		} else if hand.Cards[index].Rank == "K" || hand.Cards[index].Rank == "Q" || hand.Cards[index].Rank == "J"{
 			score += 10
-		} else if h.Cards[index].Rank == "A"{
+		} else if hand.Cards[index].Rank == "A"{
 			score += 11
-			haveAce += 1
+			handaveAce += 1
 		}
 	}
-	if score > 21 && haveAce > 1{
-		score -= 10 * haveAce
+	if score > 21 && handaveAce > 1{
+		score -= 10 * handaveAce
 	} 
 	return score
 }
 
-func (h *Hand) AddCard(card Card){
-	h.Cards = append(h.Cards, card)
+func (hand *Hand) AddCard(card Card){
+	hand.Cards = append(hand.Cards, card)
 }
 
-func (h *Hand) Display(){
-	for _,card := range h.Cards{
+func (hand *Hand) Display(){
+	for _,card := range hand.Cards{
 		fmt.Print(card.Rank + card.Suit + "..")
 	}
 }
@@ -62,12 +62,12 @@ func (deck *Deck) InitializeDeck() Deck{
 			deck.Cards = append(deck.Cards, Card{Rank: rank, Suit: string(suit)})
 		} 
 	}
-	deck.Shuffle()
+	deck.Shanduffle()
 	return *deck
 }
 
 
-func (deck *Deck) Shuffle(){
+func (deck *Deck) Shanduffle(){
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(deck.Cards), func(i, j int) {deck.Cards[i], deck.Cards[j] = deck.Cards[j], deck.Cards[i]})
 }
